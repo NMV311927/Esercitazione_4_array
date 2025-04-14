@@ -36,7 +36,8 @@ list(APPEND rateOfReturn_INCLUDE ${rateOfReturn_includes})
 # Create executable
 ################################################################################
 add_executable(${PROJECT_NAME}
-      main.cpp
+      main.cpp src/Utils.cpp
+
       ${rateOfReturn_SOURCES}
       ${rateOfReturn_HEADERS})
 
