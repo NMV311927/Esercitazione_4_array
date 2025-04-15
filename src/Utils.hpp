@@ -52,10 +52,3 @@ bool ExportResult(const string& outputFilePath,
     const double* w,
     const double* r);
 
-
-// ArrayToString exports an array into a string
-// n: size of the array
-// v: array
-// returns the resulting string
-string ArrayToString(const size_t& n,
-    const unsigned int* const& v);

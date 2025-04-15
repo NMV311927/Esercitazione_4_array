@@ -13,9 +13,10 @@ bool ImportData(const string& inputFilePath,
 {
     ifstream file(inputFilePath);
 
-    if(file.fail())
+    if(file.fail()){
         cerr << "Error opening data file" << endl;
         return false;
+    }
     
     string line;
     string val;
@@ -52,8 +53,8 @@ bool ImportData(const string& inputFilePath,
 
 
 double RateOfReturn(const size_t& n,
-    const unsigned int* w,
-    const unsigned int* r)
+    const double* w,
+    const double* r)
 {
     double RoR = 0.0;
     for(unsigned int i = 0; i < n; i++)
@@ -64,8 +65,8 @@ double RateOfReturn(const size_t& n,
 
 double FinalValue(const double S, 
     const size_t& n,
-    const unsigned int* w,
-    const unsigned int* r)
+    const double* w,
+    const double* r)
 {
     double V = (1 + RateOfReturn(n,w,r)) * S;
     return V;
@@ -73,10 +74,10 @@ double FinalValue(const double S,
 
 
 bool ExportResult(const string& outputFilePath,
-    const double S, 
+    const double& S, 
     const size_t& n,
-    const unsigned int* w,
-    const unsigned int* r)
+    const double* w,
+    const double* r)
 {
     ofstream file;
     file.open(outputFilePath);
@@ -91,15 +92,15 @@ bool ExportResult(const string& outputFilePath,
 
     file << "S = " << S << ", n = " << n << endl;
 
-    file << "w = [ "<< endl;
+    file << "w = [ ";
     for (unsigned int i = 0; i < n; i++)
         file << (i != 0 ? " " : "") << w[i];
-    file << "]" << endl;
+    file << " ]" << endl;
 
-    file << "r = [ "<< endl;
+    file << "r = [ ";
     for (unsigned int i = 0; i < n; i++)
         file << (i != 0 ? " " : "") << r[i];
-    file << "]" << endl;
+    file << " ]" << endl;
 
     file << "Rate of return of the portfolio: " << RateOfReturn(n,w,r) << endl;
     file << "V: " << FinalValue(S,n,w,r) << endl;
@@ -109,16 +110,3 @@ bool ExportResult(const string& outputFilePath,
     return true;
 }
 
-
-string ArrayToString(const size_t& n,
-    const unsigned int* const& v)
-{
-string str;
-ostringstream toString;
-toString << "[ ";
-for (unsigned int i = 0; i < n; i++)
-toString<< v[i]<< " ";
-toString << "]";
-
-return toString.str();
-}
